@@ -13,4 +13,8 @@ a {
 
 * {
   box-sizing: border-box;
+  position: relative;
+}
+img {
+  max-width: 100%;
 }
