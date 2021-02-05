@@ -17,9 +17,14 @@ export default function Home({data}) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Movie Application</title>
+        <title>{`Searching ${router.query.search}` || "Movie app"}</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="Find movies online"/>
+        <meta name="keywords" content={`NEXTJS, javascript, ${router.query.search}`} />
+        <meta name="author" content="danilo mera"/>
+
       </Head>
+
 
       <main>
         <form onSubmit={(e)=> handleSubmit(e)} className={styles.form}>
@@ -28,6 +33,9 @@ export default function Home({data}) {
             <button type="submit">Find</button>
         </form>
         <div className={styles.movieFrame}>
+          {data.results.length ===0 && (
+            <p className={styles.noResults}>No Results! OMG</p>
+          )}
           {data && data.results.map((movie,i) =>(
             <section key={i} className={styles.movieInfo}>
               <div className={styles.movieInfoImg}>
@@ -59,7 +67,8 @@ export async function getServerSideProps(context){
 
   return{
     props:{
-      data
+      data,
+
     }
   }
 }
