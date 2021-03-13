@@ -60,6 +60,10 @@
   overflow-y: hidden;
   overflow-x: hidden;
 }
+.movieInfo:hover {
+  box-shadow: 5px 5px 3px rgba(9, 3, 98, 0.356);
+  transition: box-shadow 0.5s ease-in-out;
+}
 
 .movieInfo:hover .movieInfoTxt {
   visibility: visible;

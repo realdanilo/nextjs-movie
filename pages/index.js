@@ -36,11 +36,11 @@ export default function Home({data}) {
           {data.results.length ===0 && (
             <p className={styles.noResults}>No Results! OMG</p>
           )}
-          {data && data.results.map((movie,i) =>(
+          {data && data.results.map((movie) =>(
             movie.poster_path && (
-              <Link href={`/movie?id=${movie.id}`}>
+              <Link href={`/movie?id=${movie.id}`}  key={movie.id}>
               <a>
-                <section key={i} className={styles.movieInfo}>
+                <section className={styles.movieInfo}>
                   <div className={styles.movieInfoImg}>
                     <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt={movie.original_title}/>
                   </div>
@@ -67,7 +67,6 @@ export default function Home({data}) {
 export async function getServerSideProps(context){
 //  console.log(context.query)
   let data = await searchAPI(context.query.search)
-  
   return{
     props:{
       data,

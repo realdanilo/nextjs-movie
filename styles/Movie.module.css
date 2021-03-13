@@ -1,0 +1,18 @@
+.main {
+  position: relative;
+  z-index: 1;
+}
+.backgroundImg {
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.backgroundCover {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
