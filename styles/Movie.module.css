@@ -6,7 +6,7 @@
   width: 100vw;
   height: 100vh;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
   background-size: cover;
 }
 .backgroundCover {
@@ -14,5 +14,116 @@
   width: 100vw;
   height: 100vh;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.493);
 }
+.info {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 0fr 1.5fr;
+}
+
+.pictureFormat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pictureFormat img {
+  z-index: 10;
+  border-radius: 5px;
+  object-fit: cover;
+  -webkit-box-shadow: 3px 5px 28px 11px rgba(0, 0, 0, 0.336);
+  box-shadow: 3px 5px 28px 11px rgba(0, 0, 0, 0.363);
+}
+.infoText {
+  color: rgba(255, 255, 255, 0.904);
+  z-index: 10;
+  padding: 20px;
+}
+.title {
+  text-transform: capitalize;
+  font-size: 25px;
+  margin: 0;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+.releaseDate {
+  background-color: rgba(0, 0, 0, 0.815);
+  padding: 10px;
+  margin-right: 30px;
+  display: none;
+}
+.time {
+  background-color: rgba(10, 175, 10, 0.897);
+  padding: 10px;
+  display: none;
+}
+.genres {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 20px 0;
+  display: none;
+}
+.genres li {
+  margin-right: 18px;
+}
+.tagline {
+  margin: 0;
+  padding: 0;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 100;
+  display: none;
+}
+.overview {
+  margin: 10px 0 5px 0;
+  padding: 0;
+  font-size: 20px;
+}
+.overviewText {
+  font-size: 17px;
+
+  /* line-height: 40px; */
+  font-weight: 200;
+  margin: 0;
+}
+/*  */
+@media only screen and (min-width: 420px) {
+  .overviewText {
+    font-size: 18px;
+  }
+}
+@media only screen and (min-width: 900px) {
+  .infoText {
+    padding: 50px 65px 0 20px;
+  }
+  .title {
+    font-size: 40px;
+  }
+  .releaseDate,
+  .time {
+    display: inline-block;
+  }
+  .tagline {
+    display: block;
+  }
+  .genres {
+    display: flex;
+  }
+  .info {
+    grid-template-columns: 1fr 1.5fr;
+  }
+  .overview {
+    margin-top: 25px;
+  }
+  .overviewText {
+    font-size: 20px;
+    line-height: 40px;
+  }
+}
+/*  */
