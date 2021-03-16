@@ -141,7 +141,7 @@
 /* extra section */
 .extra {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr;
   padding: 20px;
 }
 
@@ -162,10 +162,34 @@
   flex-wrap: nowrap;
   overflow-x: scroll;
   margin-right: 40px;
+  padding-bottom: 10px;
+}
+.cast::-webkit-scrollbar {
+  height: 5px;
+}
+.cast::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(25, 133, 196, 0);
 }
 
-@media only screen and (min-width: 700px) {
+.cast::-webkit-scrollbar-thumb {
+  background-color: rgba(102, 113, 161, 0.575);
+  border-radius: 10px;
+}
+/* similar movies frame */
+.similarFrame {
+  margin: 50px;
+}
+.similarFrame h3 {
+  text-align: center;
+}
+.similarMovies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+@media only screen and (min-width: 450px) {
   .extra {
     /* grid-template-columns: 1fr 1fr; */
+    grid-template-columns: 1fr auto;
   }
 }

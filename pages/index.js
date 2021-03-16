@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import {useState} from "react"
 import {useRouter} from "next/router"
 import searchAPI from "../utils/searchAPI"
+import MoviePreview from '../components/MoviePreview'
 
 export default function Home({data}) {
   const [search, setSearch]= useState("")
@@ -37,22 +37,7 @@ export default function Home({data}) {
             <p className={styles.noResults}>No Results! OMG</p>
           )}
           {data && data.results.map((movie) =>(
-            movie.poster_path && (
-              <Link href={`/movie?id=${movie.id}`}  key={movie.id}>
-              <a>
-                <section className={styles.movieInfo}>
-                  <div className={styles.movieInfoImg}>
-                    <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt={movie.original_title}/>
-                  </div>
-                  <div className={styles.movieInfoTxt}>
-                    <h3>{movie.original_title}</h3>
-                    <p>{movie.overview.substring(0,80)}...</p>
-                  </div>
-              </section>
-            </a>
-            </Link>
-            )
-           
+            movie.poster_path && <MoviePreview {...movie} key={movie.id} />
           ))}
         
        </div>

@@ -19,7 +19,7 @@ const timeConvert = (min) => {
 const movie = ({ main: data, similar, cast}) => {
     let dataTime = timeConvert(data.runtime)
     let vote_average = data.vote_average ? (data.vote_average *10 ): 0
-    console.log(similar)
+    // console.log(similar)
     
     return (
         <div className={styles.main} >
@@ -81,8 +81,11 @@ const movie = ({ main: data, similar, cast}) => {
                 <p>${(data.revenue - data.budget).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>
               </section>
             </div>
-            <div className={styles.similar}>
-              {similar.results.map(movie => <MoviePreview movie={movie}/>)}
+            <div className={styles.similarFrame}>
+              <h3>Similar Movies</h3>
+              <div className={styles.similarMovies}>
+                {similar.results.map(movie => movie.poster_path && <MoviePreview  {...movie} key={movie.id}/>) }
+              </div>
             </div>
           
         </div>
