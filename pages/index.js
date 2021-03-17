@@ -19,8 +19,8 @@ export default function Home({data}) {
       <Head>
         <title>{router.query.search ? `${router.query.search} Movies` : "Movie App - Danilo"}</title>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="description" content="Find movies online"/>
-        <meta name="keywords" content={`NEXTJS, javascript, ${router.query.search}`} />
+        <meta name="description" content="Find movies online using themoviedb.org"/>
+        <meta name="keywords" content={`NEXTJS, javascript, ${router.query.search}, realdanilo, movie application, reactjs`} />
         <meta name="author" content="danilo mera"/>
 
       </Head>

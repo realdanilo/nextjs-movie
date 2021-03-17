@@ -5,6 +5,8 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Casting from "../components/casting"
 import MoviePreview from "../components/MoviePreview"
+import SEO from '../components/SEO';
+import Link from 'next/link';
 
 
 const timeConvert = (min) => {
@@ -22,6 +24,8 @@ const movie = ({ main: data, similar, cast}) => {
     // console.log(similar)
     
     return (
+      <>
+        <SEO title={data.original_title} content={`${data.original_title} movie. ${data.overview}`}/>
         <div className={styles.main} >
             <div style={{backgroundImage:`url(http://image.tmdb.org/t/p/w500/${data.poster_path})`}} className={styles.backgroundImg}>
                 <div className={styles.backgroundCover}/>
@@ -87,8 +91,12 @@ const movie = ({ main: data, similar, cast}) => {
                 {similar.results.map(movie => movie.poster_path && <MoviePreview  {...movie} key={movie.id}/>) }
               </div>
             </div>
+            <Link href="/">
+              <a className={styles.backHome}>Home</a>
+            </Link>
           
         </div>
+        </>
     )
 }
 
