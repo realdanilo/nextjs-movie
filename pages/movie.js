@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import getMovieInfo from "../utils/getMovieInfo"
 import styles from "../styles/Movie.module.css"
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -7,6 +7,8 @@ import Casting from "../components/casting"
 import MoviePreview from "../components/MoviePreview"
 import SEO from '../components/SEO';
 import Link from 'next/link';
+import useImageColor from 'use-image-color'
+
 
 
 const timeConvert = (min) => {
@@ -18,17 +20,20 @@ const timeConvert = (min) => {
   return  `${rhours}h: ${rminutes}min`
 }
 
-const movie = ({ main: data, similar, cast}) => {
+const Movie = ({ main: data, similar, cast}) => {
     let dataTime = timeConvert(data.runtime)
     let vote_average = data.vote_average ? (data.vote_average *10 ): 0
-    // console.log(similar)
-    
+   
+      const { colors } = useImageColor(`http://image.tmdb.org/t/p/w300/${data.poster_path}`, { cors: true, colors: 2, format:"rgb" })
+      
+      let rgba = (colors && colors[0].reduce((prev,cur)=> prev + cur) < 400) ? `rgba(${colors[0][0]},${colors[0][1]},${colors[0][2]},.8)` : "rgba(0, 0, 0, 0.493)"
+     
     return (
       <>
         <SEO title={data.original_title} content={`${data.original_title} movie. ${data.overview}`}/>
         <div className={styles.main} >
             <div style={{backgroundImage:`url(http://image.tmdb.org/t/p/w500/${data.poster_path})`}} className={styles.backgroundImg}>
-                <div className={styles.backgroundCover}/>
+                <div className={styles.backgroundCover} style={{backgroundColor: rgba}}/>
                 <div className={styles.info}>
                     <section className={styles.pictureFormat}>
                       <img src={`http://image.tmdb.org/t/p/w400/${data.poster_path}`} alt={data.title}/>
@@ -96,11 +101,12 @@ const movie = ({ main: data, similar, cast}) => {
             </Link>
           
         </div>
+      
         </>
     )
 }
 
-export default movie
+export default Movie
 
 export async function getServerSideProps(context){
      let {main,similar, cast} = await getMovieInfo(parseInt(context.query.id))

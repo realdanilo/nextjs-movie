@@ -15,7 +15,7 @@
   width: 100vw;
   height: 100vh;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.493);
+  /* background-color: rgba(0, 0, 0, 0.493); */
 }
 .info {
   position: absolute;
@@ -43,6 +43,7 @@
   color: rgba(255, 255, 255, 0.904);
   z-index: 10;
   padding: 20px;
+  /* text-shadow: 0px 0px 6px rgba(0, 6, 0, 0.79); */
 }
 .title {
   text-transform: capitalize;
