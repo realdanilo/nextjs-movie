@@ -59,3 +59,22 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
+.loadMore {
+  background-color: rgba(0, 0, 0, 0.863);
+  color: white;
+  display: block;
+  padding: 15px;
+  width: 80%;
+  max-width: 800px;
+  margin: 30px auto 50px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 100;
+  border: none;
+}
+.loadMore:hover {
+  cursor: pointer;
+}
+.loadMore:focus {
+  outline: none;
+}

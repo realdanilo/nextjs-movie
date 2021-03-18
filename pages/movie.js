@@ -28,6 +28,7 @@ const Movie = ({ main: data, similar, cast}) => {
       
       let rgba = (colors && colors[0].reduce((prev,cur)=> prev + cur) < 400) ? `rgba(${colors[0][0]},${colors[0][1]},${colors[0][2]},.8)` : "rgba(0, 0, 0, 0.493)"
      
+      let net = (data.revenue - data.budget)
     return (
       <>
         <SEO title={data.original_title} content={`${data.original_title} movie. ${data.overview}`}/>
@@ -87,7 +88,7 @@ const Movie = ({ main: data, similar, cast}) => {
                 <h5>Revenue</h5>
                 <p>${data.revenue.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>
                 <h5>Net</h5>
-                <p>${(data.revenue - data.budget).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>
+                <p style={{color:(net > 0 ? "green":"red")}}>${net.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>
               </section>
             </div>
             <div className={styles.similarFrame}>

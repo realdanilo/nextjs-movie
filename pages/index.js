@@ -5,15 +5,32 @@ import {useRouter} from "next/router"
 import searchAPI from "../utils/searchAPI"
 import MoviePreview from '../components/MoviePreview'
 
-export default function Home({data}) {
-  const [search, setSearch]= useState("")
+export default function Home({freshData}) {
   const router = useRouter()
- 
+  const [ data, setData] = useState(freshData)
+  const [search, setSearch]= useState(router.query.search || "toy story")
 
   const handleSubmit = e => {
     e.preventDefault()
-    router.push(`/?search=${search}`)
+    // router.push(`/?search=${search}`) DONT DELETEs
+    async function run(){
+      let res = await searchAPI(search,1)
+      setData({...res})
+    }
+    run()
   }
+
+  const handleLoad = e =>{
+    e.preventDefault()
+    if(data.page < data.total_pages){
+      async function run(){
+        let res = await searchAPI(search , data.page+1)
+        setData({...res,results: [...data.results,...res.results]})
+      }
+      run()
+    }
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -39,8 +56,12 @@ export default function Home({data}) {
           {data && data.results.map((movie) =>(
             movie.poster_path && <MoviePreview {...movie} key={movie.id} />
           ))}
-        
        </div>
+       {data.page < data.total_pages && (
+          <button className={styles.loadMore} onClick={handleLoad}>
+            Load More
+          </button>
+        )}
       </main>
 
       
@@ -50,11 +71,10 @@ export default function Home({data}) {
 
 
 export async function getServerSideProps(context){
-//  console.log(context.query)
-  let data = await searchAPI(context.query.search)
+  let freshData = await searchAPI(context.query.search)
   return{
     props:{
-      data,
+      freshData,
 
     }
   }
