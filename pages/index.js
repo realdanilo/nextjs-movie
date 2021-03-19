@@ -1,20 +1,26 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import {useState} from "react"
+import {useState, useContext} from "react"
 import {useRouter} from "next/router"
 import searchAPI from "../utils/searchAPI"
 import MoviePreview from '../components/MoviePreview'
+import {SearchContext, DispatchContext} from "../context/SearchContext"
+
 
 export default function Home({freshData}) {
+  const searchGlobal = useContext(SearchContext)
+  const setSearchGlobal = useContext(DispatchContext)
+
   const router = useRouter()
   const [ data, setData] = useState(freshData)
-  const [search, setSearch]= useState(router.query.search || "toy story")
+  // const [search, setSearch]= useState(router.query.search || "toy story")
 
   const handleSubmit = e => {
     e.preventDefault()
-    // router.push(`/?search=${search}`) DONT DELETEs
+    // DONT DELETE THIS
+    router.push(`/?search=${searchGlobal}`) 
     async function run(){
-      let res = await searchAPI(search,1)
+      let res = await searchAPI(searchGlobal,1)
       setData({...res})
     }
     run()
@@ -24,7 +30,7 @@ export default function Home({freshData}) {
     e.preventDefault()
     if(data.page < data.total_pages){
       async function run(){
-        let res = await searchAPI(search , data.page+1)
+        let res = await searchAPI(searchGlobal , data.page+1)
         setData({...res,results: [...data.results,...res.results]})
       }
       run()
@@ -46,7 +52,7 @@ export default function Home({freshData}) {
       <main>
         <form onSubmit={(e)=> handleSubmit(e)} className={styles.form}>
             <label>Search: </label>
-            <input type="text" onChange={(e)=> setSearch(e.target.value)} value={search}/>
+            <input type="text" onChange={(e)=> setSearchGlobal(e.target.value)} value={searchGlobal}/>
             <button type="submit">&#128269;</button>
         </form>
         <div className={styles.movieFrame}>
@@ -71,7 +77,7 @@ export default function Home({freshData}) {
 
 
 export async function getServerSideProps(context){
-  let freshData = await searchAPI(context.query.search)
+  let freshData = await searchAPI(context.query.search ||"toy story")
   return{
     props:{
       freshData,

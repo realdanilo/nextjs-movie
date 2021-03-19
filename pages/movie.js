@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useContext} from 'react'
 import getMovieInfo from "../utils/getMovieInfo"
 import styles from "../styles/Movie.module.css"
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -8,6 +8,7 @@ import MoviePreview from "../components/MoviePreview"
 import SEO from '../components/SEO';
 import Link from 'next/link';
 import useImageColor from 'use-image-color'
+import { SearchContext } from '../context/SearchContext';
 
 
 
@@ -21,6 +22,7 @@ const timeConvert = (min) => {
 }
 
 const Movie = ({ main: data, similar, cast}) => {
+  let searchGlobal = useContext(SearchContext)
     let dataTime = timeConvert(data.runtime)
     let vote_average = data.vote_average ? (data.vote_average *10 ): 0
    
@@ -97,7 +99,7 @@ const Movie = ({ main: data, similar, cast}) => {
                 {similar.results.map(movie => movie.poster_path && <MoviePreview  {...movie} key={movie.id}/>) }
               </div>
             </div>
-            <Link href="/">
+            <Link href={`/?search=${searchGlobal}`}>
               <a className={styles.backHome}>Home</a>
             </Link>
           
